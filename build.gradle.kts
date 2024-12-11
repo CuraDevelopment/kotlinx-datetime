@@ -9,7 +9,7 @@ infra {
     }
     publishing {
         include(":kotlinx-datetime")
-        libraryRepoUrl = "https://github.com/Kotlin/kotlinx-datetime"
+        libraryRepoUrl = "https://github.com/CuraDevelopment/kotlinx-datetime"
         sonatype {
             libraryStagingRepoDescription = project.name
         }

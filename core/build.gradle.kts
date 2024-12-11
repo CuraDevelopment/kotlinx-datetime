@@ -39,50 +39,50 @@ kotlin {
         common("tzfile") {
             // Tiers are in accordance with <https://kotlinlang.org/docs/native-target-support.html>
             common("tzdbOnFilesystem") {
-                common("linux") {
-                    // Tier 1
-                    target("linuxX64")
-                    // Tier 2
-                    target("linuxArm64")
-                    // Tier 4 (deprecated, but still in demand)
-                    target("linuxArm32Hfp")
-                }
+//                common("linux") {
+//                    // Tier 1
+//                    target("linuxX64")
+//                    // Tier 2
+//                    target("linuxArm64")
+//                    // Tier 4 (deprecated, but still in demand)
+//                    target("linuxArm32Hfp")
+//                }
                 common("darwin") {
                     common("darwinDevices") {
-                        // Tier 1
-                        target("macosX64")
-                        target("macosArm64")
-                        // Tier 2
-                        target("watchosX64")
-                        target("watchosArm32")
-                        target("watchosArm64")
-                        target("tvosX64")
-                        target("tvosArm64")
+//                        // Tier 1
+//                        target("macosX64")
+//                        target("macosArm64")
+//                        // Tier 2
+//                        target("watchosX64")
+//                        target("watchosArm32")
+//                        target("watchosArm64")
+//                        target("tvosX64")
+//                        target("tvosArm64")
                         target("iosArm64")
                         // Tier 3
-                        target("watchosDeviceArm64")
+//                        target("watchosDeviceArm64")
                     }
                     common("darwinSimulator") {
                         // Tier 1
                         target("iosSimulatorArm64")
                         target("iosX64")
                         // Tier 2
-                        target("watchosSimulatorArm64")
-                        target("tvosSimulatorArm64")
+//                        target("watchosSimulatorArm64")
+//                        target("tvosSimulatorArm64")
                     }
                 }
             }
-            common("androidNative") {
-                target("androidNativeArm32")
-                target("androidNativeArm64")
-                target("androidNativeX86")
-                target("androidNativeX64")
-            }
+//            common("androidNative") {
+//                target("androidNativeArm32")
+//                target("androidNativeArm64")
+//                target("androidNativeX86")
+//                target("androidNativeX64")
+//            }
         }
         // Tier 3
-        common("windows") {
-            target("mingwX64")
-        }
+//        common("windows") {
+//            target("mingwX64")
+//        }
     }
 
     jvm {
@@ -95,7 +95,7 @@ kotlin {
 
     }
 
-    js {
+/*    js {
         nodejs {
             testTask {
                 useMocha {
@@ -115,9 +115,9 @@ kotlin {
 //                outputFile = "kotlinx-datetime-tmp.js"
 //            }
 //        }
-    }
+    }*/
 
-    wasmJs {
+/*    wasmJs {
         nodejs {
             testTask {
                 useMocha {
@@ -129,7 +129,7 @@ kotlin {
 
     wasmWasi {
         nodejs()
-    }
+    }*/
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
@@ -180,7 +180,7 @@ kotlin {
         val jvmTest by getting {
         }
 
-        val commonJsMain by creating {
+        /*val commonJsMain by creating {
             dependsOn(commonMain.get())
             dependencies {
                 api("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
@@ -209,7 +209,7 @@ kotlin {
 
         val wasmJsTest by getting {
             dependsOn(commonJsTest)
-        }
+        }*/
 
         val commonKotlinMain by creating {
             dependsOn(commonMain.get())
@@ -230,7 +230,7 @@ kotlin {
             dependsOn(commonKotlinTest)
         }
 
-        val wasmWasiMain by getting {
+        /*val wasmWasiMain by getting {
             dependsOn(commonKotlinMain)
         }
 
@@ -239,7 +239,7 @@ kotlin {
             dependencies {
                 runtimeOnly(project(":kotlinx-datetime-zoneinfo"))
             }
-        }
+        }*/
 
         val darwinMain by getting {
         }
@@ -427,17 +427,17 @@ tasks.withType<AbstractDokkaLeafTask>().configureEach {
     }
 }
 
-// Disable intermediate sourceSet compilation because we do not need js-wasmJs artifact
-tasks.configureEach {
-    if (name == "compileCommonJsMainKotlinMetadata") {
-        enabled = false
-    }
-}
-
-// Drop this configuration when the Node.JS version in KGP will support wasm gc milestone 4
-// check it here:
-// https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/js/nodejs/NodeJsRootExtension.kt
-with(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin.apply(rootProject)) {
-    nodeVersion = "21.0.0-v8-canary202309167e82ab1fa2"
-    nodeDownloadBaseUrl = "https://nodejs.org/download/v8-canary"
-}
+//// Disable intermediate sourceSet compilation because we do not need js-wasmJs artifact
+//tasks.configureEach {
+//    if (name == "compileCommonJsMainKotlinMetadata") {
+//        enabled = false
+//    }
+//}
+//
+//// Drop this configuration when the Node.JS version in KGP will support wasm gc milestone 4
+//// check it here:
+//// https://github.com/JetBrains/kotlin/blob/master/libraries/tools/kotlin-gradle-plugin/src/common/kotlin/org/jetbrains/kotlin/gradle/targets/js/nodejs/NodeJsRootExtension.kt
+//with(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin.apply(rootProject)) {
+//    nodeVersion = "21.0.0-v8-canary202309167e82ab1fa2"
+//    nodeDownloadBaseUrl = "https://nodejs.org/download/v8-canary"
+//}
